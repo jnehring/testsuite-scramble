@@ -28,12 +28,25 @@ All configuration options can be done in scrambler.py
 
 ### Configuration for scramble
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Parameter name        | Description           | Example value  |
+| ------------- |-------------| -----|
+| mode | Define if you want to use the skript for scramble or unscramble. Can be either "scramble" or "unscramble". | "scramble" |
+| distractor_file | Path to the file that contains distractors. One line per distractor. | "distractor.txt" |
+| test_items_file | Path to the file that contains the test items with one test item in each line. All test items will be used.  | "test-items.txt" |
+| number_of_distractors | How many distractors should be used? | 100 |
+| translate_test_items | Boolean flag if test items should be translated. | True or false |
+| translate_distractors | Boolean flag if distractors should be translated | True or false |
+| source_lang | Source language for translation. Only used when translate_test_items=True or translate_distractors=True | "en" |
+| target_lang | Target language for translation. Only used when translate_test_items=True or translate_distractors=True | "de" |
+| google_api_key | The Google API key used for Google translate. only used when translate_test_items=True or translate_distractors=True | "abcdefg" |
 
 ### Configuration for unscramble
 
+| Parameter name        | Description           | Example value  |
+| ------------- |-------------| -----|
+| secret_file | This is the path to the secret file used as input for unscramble| "output/secret-2016-06-07---10-09-00.csv" |
+| translation_file | This is the path to the translation file used as input for unscramble| "output/translation-2016-06-07---10-09-00.txt" |
+| outfile | This is the path of the output file of unscramble | "output/uncramble-2016-06-07---10-09-00.csv" |
+
+## Hints
 * No empty lines in the data files
