@@ -1,12 +1,13 @@
-# Installation
+# Testsuite Scrambler
 
-1. Use Python 2.7
-2. Install python library:
+## Usage
 
-Either execute
-pip install --upgrade google-api-python-client
+1. Install Python 2.7
+2. Clone repository `git clone https://github.com/jnehring/testsuite-scrambler`
+3. Confiugre scrambler.py
+4. Run Skript: python scrambler.py
 
-Or read the manual: https://developers.google.com/api-client-library/python/apis/translate/v2#sample
+## Configuration
 
 # Usage
 
