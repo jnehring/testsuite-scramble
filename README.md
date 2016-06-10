@@ -5,7 +5,7 @@
 1. Install Python 2.7
 2. Clone repository `git clone https://github.com/jnehring/testsuite-scrambler`
 3. Confiugre scrambler.py
-4. Run Skript: python scrambler.py
+4. Run script: python scrambler.py
 
 The skript takes these input files:
 
