@@ -48,5 +48,7 @@ All configuration options can be done in scrambler.py
 | translation_file | This is the path to the translation file used as input for unscramble| "output/translation-2016-06-07---10-09-00.txt" |
 | outfile | This is the path of the output file of unscramble | "output/uncramble-2016-06-07---10-09-00.csv" |
 
-## Hints
-* No empty lines in the data files
+## Remarks
+
+* No empty lines in the data files.
+* You should use a new distractor file. The distractor file provided in this repository is public and therefore the distractors in your scramble file can be identified.
