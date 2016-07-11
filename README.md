@@ -1,5 +1,9 @@
 # Testsuite Scrambler
 
+This script is used to “hide” a corpus of sentences ("test suite”) for Machine Translation within a corpus of blind text. The resulting scrambled corpus can be sent to an external MT provider for translation without him knowing what the test items are. Using a file with the “secret”, the test suite can be restored. In addition, it is possible to send the test suite to Google Translate given a valid key for the API.
+
+The project leading to this application has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 645452 (“QT21").
+
 ## Usage
 
 1. Install Python 2.7
