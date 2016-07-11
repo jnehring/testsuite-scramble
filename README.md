@@ -54,3 +54,17 @@ All configuration options can be done in scrambler.py
 * You should use a new distractor file. The distractor file provided in this repository is public and therefore the distractors in your scramble file can be identified.
 * You can use create-translations.py to generate an example translation file that can be used to test how the script works. After using scramble you can use create-translations.py to generate the translation_file that is the input for unscramble.
 * When you import the CSV files in Excel, choose UTF-8 encoding. In Excel this has number 65001 and is almost at the bottom of the list of encodings.
+
+## License
+
+Copyright 2015 Deutsches Forschungszentrum für Künstliche Intelligenz
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
