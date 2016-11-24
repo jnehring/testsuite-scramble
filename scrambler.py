@@ -10,6 +10,8 @@ from shutil import copyfile
 # Parameter "mode"
 # define if you want to use the skript for scramble or unscramble
 # can be either "scramble" or "unscramble"
+from unicodedata import numeric
+
 mode = "scramble"
 
 ##############################
@@ -17,7 +19,7 @@ mode = "scramble"
 ##############################
 
 # Parameter distractor_file
-# this is the path to the file that contains distractors. One line per distractor
+# this is the path to the file that contains distractors. One line per distractor.
 distractor_file = "distractor.txt"
 
 # Parameter test_items_file
@@ -29,6 +31,14 @@ test_items_file = "test-items.txt"
 # how many distractors should be used?
 number_of_distractors = 100
 
+# parameter translate_test_items
+# Set to True when test items should be enabled, otherwise False
+translate_test_items = True
+
+# parameter translate_distractors
+# Set to True when distractors should be enabled, otherwise False
+translate_distractors = True
+
 # Parameter source_lang
 # the source language for translation. only used when translate_test_items=True or translate_distractors=True
 source_lang = "en"
@@ -37,17 +47,9 @@ source_lang = "en"
 # the target language for translation. only used when translate_test_items=True or translate_distractors=True
 target_lang = "de"
 
-# parameter translate_test_items
-# Set to True when test items should be enabled, otherwise False
-translate_test_items = False
-
-# parameter translate_distractors
-# Set to True when distractors should be enabled, otherwise False
-translate_distractors = False
-
 # Parameter google_api_key
 # The Google API key used for Google translate. only used when translate_test_items=True or translate_distractors=True
-google_api_key = ''
+google_api_key = 'AIzaSyA-zKPvfYDJRY1TUqEavZqHoeQkhDaTeb0'
 
 
 # Settings for output files and directories - does not need to be changed
@@ -126,22 +128,10 @@ def scramble():
 
     data = [[None]*4] * n_lines
 
-    # translate test items
-    translations = [None] * len(test_items)
-    if translate_test_items:
-        for i in range(0, len(test_items)):
-            trans = translate(test_items[i], source_lang, target_lang)
-            translations[i] = trans
-
-            if i%20 == 0 and translate_test_items:
-                print "translated " + str(i) + " test items"
-
     # add test items array
     test_items_indizes = random.sample(range(1,n_lines), len(test_items))
     for i in range(0,len(test_items_indizes)):
         trans = None
-        if( translations[i] != None):
-            trans = translations[i].encode("utf-8")
         data[test_items_indizes[i]] = [test_items[i], i, "test item", trans]
 
     # add distractors to array
@@ -155,15 +145,6 @@ def scramble():
             distractorCounter+=1
             distractor = distractors[distIndex]
 
-            # translate distractors
-            trans = None
-            if translate_distractors:
-                trans = translate(distractor, source_lang, target_lang)
-                trans = trans.encode("utf-8")
-
-                if distractorCounter % 20 == 0 and translate_distractors:
-                    print "translated " + str(distractorCounter) + " distractors"
-
             data[i] = [distractor, distIndex, "distractor", trans]
 
     # write scramble file
@@ -172,6 +153,25 @@ def scramble():
         file.write(data[i][0])
         file.write("\n")
     file.close()
+
+    # collect data to translate
+    translations = []
+    for i in range(0, len(data)):
+        if(translate_test_items and data[i][2] == "test item") or (translate_distractors and data[i][2] == "distractor"):
+            translations.append({
+                "txt": data[i][0],
+                "index": i
+            })
+    random.shuffle(translations)
+
+    # translate
+    for i in range(0, len(translations)):
+        trans = translate(translations[i]["txt"], source_lang, target_lang)
+        trans = trans.encode("utf-8")
+        data[translations[i]["index"]][3] = trans
+
+        if i>0 and i % 20 == 0:
+            print "translated " + str(i) + " rows"
 
     # write csv file
     with open(secret_outfile, 'wb') as csvfile:
