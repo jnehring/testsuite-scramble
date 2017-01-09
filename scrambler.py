@@ -6,6 +6,8 @@ import urllib2
 import json
 from dis import dis
 from shutil import copyfile
+import ssl
+import sys
 
 # Parameter "mode"
 # define if you want to use the skript for scramble or unscramble
@@ -29,7 +31,7 @@ test_items_file = "test-items.txt"
 
 # Parameter number_of_distractors
 # how many distractors should be used?
-number_of_distractors = 100
+number_of_distractors = 10
 
 # parameter translate_test_items
 # Set to True when test items should be enabled, otherwise False
@@ -49,7 +51,7 @@ target_lang = "de"
 
 # Parameter google_api_key
 # The Google API key used for Google translate. only used when translate_test_items=True or translate_distractors=True
-google_api_key = 'AIzaSyA-zKPvfYDJRY1TUqEavZqHoeQkhDaTeb0'
+google_api_key = '???'
 
 
 # Settings for output files and directories - does not need to be changed
@@ -88,9 +90,10 @@ if not os.path.exists(output_dir):
 def translate(str, sourceLang, targetLang):
     q = urllib2.quote(str)
     url = "https://www.googleapis.com/language/translate/v2?key=" + google_api_key + "&source=" + sourceLang + "&target=" + targetLang + "&q=" + q
-    response = urllib2.urlopen(url)
-    html = response.read()
-    data = json.loads(html)
+    req = urllib2.Request(url)
+    gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+    response = urllib2.urlopen(req, context=gcontext).read()
+    data = json.loads(response)
     return data["data"]["translations"][0]["translatedText"]
 
 ############
