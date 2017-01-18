@@ -165,23 +165,32 @@ def scramble():
                 "txt": data[i][0],
                 "index": i
             })
-    random.shuffle(translations)
 
-    # translate
-    for i in range(0, len(translations)):
-        trans = translate(translations[i]["txt"], source_lang, target_lang)
-        trans = trans.encode("utf-8")
-        data[translations[i]["index"]][3] = trans
-
-        if i>0 and i % 20 == 0:
-            print "translated " + str(i) + " rows"
+    # write scramble file
+    file = open(scramble_outfile, "w")
+    for i in range(0, len(data)):
+        file.write(data[i][0])
+        file.write("\n")
+    file.close()
 
     # write csv file
     with open(secret_outfile, 'wb') as csvfile:
-        csvwriter = csv.writer(csvfile, delimiter="\t",quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csvwriter = csv.writer(csvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow(["sentence", "original index", "type", "google translation"])
         for i in range(0, len(data)):
+
+            # translate if necessary
+            if (translate_test_items and data[i][2] == "test item") or (
+                        translate_distractors and data[i][2] == "distractor"):
+
+                trans = translate(data[i][0], source_lang, target_lang)
+                trans = trans.encode("utf-8")
+                data[i][3] = trans
+
             csvwriter.writerow(data[i])
+
+            if i > 0 and i % 20 == 0:
+                print "wrote " + str(i) + " rows"
         csvfile.close()
 
     print "finished scramble"
