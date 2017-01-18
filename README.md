@@ -15,8 +15,8 @@ The skript takes these input files:
 
 | Filename  | Description |
 | ------------- |-------------|
-| test-items.txt      | File that contains test items with one test item in each line. All test items will be used. |
-| distractor.txt      | File that contains distractors. One line per distractor.      |
+| test-items.txt      | File that contains test items with one test item in each line. All test items will be used. Needs to be UTF-8 encoded.|
+| distractor.txt      | File that contains distractors. One line per distractor. Needs to be UTF-8 encoded.|
 
 The skript generates files in the output directory. All filenames have the current date and time attached to the filename, denoted with "123" in these examples:
 
